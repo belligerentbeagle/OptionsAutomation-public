@@ -14,6 +14,22 @@ A S$30K funded project to develop an automated options trading program for two s
 1. Run the streamlit app with `streamlit run main.py`
 1. Enjoy!
 
+## EC2 Startup
+
+To easily start the database service and the Streamlit app on your EC2 instance, use the provided `startup_ec2.sh` script.
+
+1.  Upload `startup_ec2.sh` to your EC2 instance (e.g., `/home/ec2-user/`).
+2.  Make the script executable:
+    ```bash
+    chmod +x startup_ec2.sh
+    ```
+3.  Run the script:
+    ```bash
+    ./startup_ec2.sh
+    ```
+
+This will start both the database service and the Streamlit app in detached `tmux` sessions (`qq_db` and `qq_app`).
+
 # Topics touched on in this project:
 ## Key Modules:
 1. Fundamental Analyst
@@ -123,6 +139,35 @@ Limit 25 requests per day
 
 
 # Change log:
+4 Jan 2026:
+1. Add Moat Analyzer for stocks
+1. Add Dashboard for US, CN Heatmaps, and top movers. 
+
+Over Dec 2025:
+1. Add support for economic moat for companies in database.
+
+18 Oct 2025:
+1. AWS database integration, enabling cloud-based storage and retrieval of growth rate data for scalability, efficiency and multi-node updates.
+
+11 Oct 2025:
+1. Add Financial Performance and cashflow analysis and tradingview chart integration. Improve Stock class to store data.
+
+20 Sep 2025:
+1. Changed data source to pull directly from upstream FinancialModellingPrep instead of FinanceToolkit, as documentation and functions were missing.
+1. Solved issue of pulling growth rate 
+1. Solved IP rate limiting problem by proxy through ScraperAPI
+
+16 Sep 2025:
+1. Added caching - found an intricacy of cache implementation of financetoolkit library, where it takes the first initialised cache configuration (quarterly) and applies it to all subsequent calls, ignoring the specified new configuration. Therefore, I had to improve the way we took annual data from quarterly data.
+1. Also, fixed bug where FinanceToolkit library just removed shares outstanding parameter from getquote call.
+1. Before and after: From 18 secs to about 3 secs for 4 stocks.
+<img width="859" height="803" alt="Screenshot 2025-09-16 at 1 15 46 PM" src="https://github.com/user-attachments/assets/570df962-7264-43bd-9e2b-2dfdf0c0347a" />
+
+<img width="869" height="833" alt="Screenshot 2025-09-16 at 1 20 07 PM" src="https://github.com/user-attachments/assets/d7d214f7-0293-4a86-a77e-52743abd6445" />
+
+1 Sep 2025:
+1. Enhance Portfolio Manager Component 1: Prevent Duplication of Existing Positions to avoid overexposure on single ticker.
+
 14 Jun 2025:
 1. Bug fixes: yfinance getting rate limited.
 
